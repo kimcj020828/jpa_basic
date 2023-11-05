@@ -1,0 +1,70 @@
+JPA(Java Persistence API): 자바진영의 ORM 기술 표준
+
+- ORM: Object Relational Mapping(객체 관계 맵핑)
+
+
+- JPA동작(저장)
+ex)
+JVM 내부에서 'MemberDAO'가 'Persist' 수행으로 Entity 전달
+-> JPA에서 Entity 분석, INSERT SQL 생성, JDBC API 사용, 패러다임 불일치 해결
+-> JDBC API에서 DBMS로 SQL 실행
+
+
+
+
+- JPA의 History
+EJB(Entity Bean) -> Hibernate -> JPA
+
+-JPA는 표준 명세
+=> Interface의 모음
+=> JPA 2.1 표준 명세를 구현한 3가지 구현체(Hibernate, EclipseLink, DataNucleus)
+
+- JPA 버젼
+=> 1.0(JSR 220): 초기버젼. 복합키와 연관관계 기능이 부족(2006)
+=> 2.0(JSR 317): 대부분의 ORM 기능을 포함, JPA Criteria(2009)
+=> 2.1(JSR 338): Stored Procedure, Converter, Entity Graph 기능 추가(2013)
+
+
+- JPA를 사용해야하는 이유
+=> SQL 중심적인 개발에서 객체중심으로 개발
+=> 생산성
+=> 유지보수
+=> 패러다임의 불일치 해결
+=> 성능
+=> 데이터 접근 추상화와 벤더 독립성
+=> 표준
+
+
+- JPA의 생산성에 대한 예시
+=> 저장: jpa.persist(member)
+=> 조회: Member member = jpa.find(memberId)
+=> 수정: member.setName("newName")
+=> 삭제: jpa.remove(member)
+
+- JPA의 유지보수에 대한 예시
+=> 기존의 경우 필드 변경시 모든 SQL의 수정이 동반되었다면, JPA의 경우 필드만 추가해주면 된다.
+
+- JPA의 패러다임의 불일치 해결에 대한 예시
+=> JPA는 상속에 맞게 SuperType과, SubType의 Insert를 알아서 해준다.
+=> 신뢰할 수 있는 엔티티, 계층
+
+- 인스턴스 비교하기
+=> 동일한 내용을 포함한 인스턴스의 경우 비교연산자(==)를 수행하면 같은 인스턴스로 인식한다.(!단, 동일한 트랜잭션에서 조회한 엔티티는 같음을 보장)
+
+-JPA 성능 최적화 기능
+=> 1차 캐시와 동일성(identity)보장
+* 같은 트랜잭션 안에서는 같은 Entity를 반환-약간의 조회 성능 향상
+* DB Isolation Level이 Read Commit 이어도 애플리케이션에서 Repeatable Read 보장
+
+=> 트랜잭션을 지원하는 쓰기 지연(transactional write-behind)
+* 트랜잭션을 커밋할 떄까지 INSERT,UPDATE SQL을 모음(BATCH에 유리)
+* JDBC BATCH SQL 기능을 사용해서 한번에 SQL 전송
+* UPDATE,DELETE로 인한 Row Lock 시간 최소화
+
+=> 지연 로딩(Lazy Loading)
+* 지연로딩: 객체가 실제 사용될 때 로딩
+* 즉시로딩: JOIN SQL로 한버에 연관된 객체 미리 조회
+! 보통 지연로딩으로 셋팅하고 최적화 할 때, 즉시로딩 등으로 변경
+
+
+!!! 결국 ORM은 객체와 RDB 두 기둥위에 있는 기술: 객체지향의 개념, 관계형데이터베이스의 개념을 둘 다 잘 알아야 한다.

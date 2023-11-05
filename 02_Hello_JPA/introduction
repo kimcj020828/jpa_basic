@@ -1,0 +1,33 @@
+기본적으로 H2 데이터베이스 설치
+
+# http://www.h2database.com
+# 최고의 실습용 DB
+# 가볍다(1.5M)
+# 웹용 쿼리툴 제공
+# MySQL,Oracle 데이터베이스 시뮬레이션 제공
+# 시퀀스, Auto increment 기능 지원
+# 다운 받은 H2 DB의 버젼과 일치한 라이브러리 버젼으로 의존성을 추가해야 한다.
+
+메이븐 설치
+# https://maven.apache.org
+# 자바라이브러리, 빌드관리
+# 라이브러리 자동 다운로드 및 의존성 관리
+# 최근에는 Gradle이 점점 유명해짐
+
+프로젝트 생성
+# 자바 8 이상
+# 메이븐 설정
+# groupId:jpa-basic
+# artifactId: ex1-hello-jpa
+# version: 1.0.0
+
+
+!!!!!!! Spring Framework 버젼에 따른 라이브러리 호환 버젼 알아보기
+# https://spring.io/projects/spring-boot#learn 에 들어가서 사용할 프레임워크의 버젼의 'Reference Doc.'을 클릭하면 아래 라이브러리명과 버젼이 명시되어 있다. ex) 'org.hibernate'
+# https://docs.spring.io/spring-boot/docs/current/reference/html/dependency-versions.html#appendix.dependency-versions
+
+
+JPA를 사용하기 위한 프로젝트 설정
+#persistence.xml
+*/META-INF/persistence.xml 위치
+* 'persistence-unit name="이름"'으로 이름 지정
