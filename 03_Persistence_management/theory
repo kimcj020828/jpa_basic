@@ -39,3 +39,13 @@ EntityManagerFactory & EntityManager
 => 영속성 컨텍스트에 저장되었다가 분리된 상태
 *삭제(removed)
 =>삭제된 상태
+
+영속성 컨텍스트의 이점(버퍼도 가능하고, 캐싱도 가능하고)
+* 엔티티 조회,1차 캐시-사용자의 요청 건by건별로 소멸되고 생성되기 때문에 크게 이점이 없음.
+*영속 엔티티의 동일성(identity)보장
+=> 1차캐시로 반복 가능한 읽기(repeatable read) 등급의 트랜잭션 격리 수준을 데이터베이스가 아닌 애플리케이션 차원에서 제공
+*트랜잭션을 지원하는 쓰기지연(transactional write-behind)
+=> persist를 실행하는 순간 DB에 SQL을 보내는 것이 아닌, commit을 할 때 SQL을 보냄
+=> 영속 컨텍스트(PersistenceContext) 내에는 '쓰기 지연 SQL 저장소'라는 것이 존재
+*변경감지(Dirty Checking)
+*지연로딩(Lazy Loading)
